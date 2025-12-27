@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="log.png" type="image/x-icon">
+    <title>Happy Ethiopian Christmas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+
+        :root {
+            --gold: #c5a059;
+            --dark: #0a0a0a;
+            --ethio-green: #004d26;
+            --ethio-yellow: #d4af37;
+            --ethio-red: #8b0000;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            background-color: var(--dark);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Page 1 & 2: The Luxury Envelope --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 380px;
+            height: 500px;
+            z-index: 10;
+            transition: all 1.5s ease-in-out;
+        }
+
+        .card-outer {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: #151515;
+            border: 2px solid var(--gold);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            cursor: pointer;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9);
+            z-index: 5;
+        }
+
+        .tibeb-ribbon {
+            width: 100%; height: 35px;
+            background: linear-gradient(to right, var(--ethio-green) 33%, var(--ethio-yellow) 33%, var(--ethio-yellow) 66%, var(--ethio-red) 66%);
+            position: absolute; top: 30px;
+        }
+
+        .seal {
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, #e6be7a, #c5a059);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 45px; margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+            border: 1px solid #fff;
+            margin-bottom: 10px;
+        }
+
+        .card-inner {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: #fff;
+            padding: 40px; box-sizing: border-box;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; color: #111;
+            z-index: 4;
+        }
+
+        /* --- Page 3: The Final Reveal (Image Page) --- */
+        #final-page {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://live.staticflickr.com/5130/5289071308_8f8e7b919d_b.jpg') no-repeat center center;
+            background-size: cover;
+            display: none; /* Hidden at start */
+            z-index: 20;
+            justify-content: center; align-items: center;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .final-content {
+            position: relative;
+            z-index: 21;
+            text-align: center;
+            color: white;
+        }
+
+        .final-content h1 {
+            font-size: 5rem;
+            color: var(--ethio-yellow);
+            margin: 0;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* Logic classes */
+        .is-open .card-outer { transform: rotateY(-140deg); }
+        .hidden { opacity: 0; pointer-events: none; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="giftCard" onclick="handleCardClick()">
+        <div class="card-outer">
+            <div class="tibeb-ribbon"></div>
+            <div class="seal">
+                <img src="log.png" alt="logo" srcset="" width="85px" style="border-radius: 50%;">
+            </div>
+            <h2 style="color: var(--gold); letter-spacing: 4px; margin-bottom: 10px;">መልካም ገና</h2>
+            <h2 style="color: var(--ethio-yellow); letter-spacing: 4px; margin-top: 0px;">MELKAM GENA</h2>
+            <p style="color: #666; font-size: 12px; margin-top: 20px;">CLICK TO HERE</p>
+            <div class="tibeb-ribbon" style="top: auto; bottom: 30px;"></div>
+        </div>
+
+        <div class="card-inner">
+            <h1 style="color: var(--ethio-red);">መልካም ገና</h1>
+            <p style="font-size: 28px; margin: 20px 0;">Happy Christmas</p>
+            <div style="width: 60px; height: 1px; background: #ddd; margin: 20px auto;"></div>
+            <p style="font-family: sans-serif; line-height: 1.6; color: #444;">
+                "እነሆ፥ ዛሬ በዳዊት ከተማ መድኅን ተወልዶላችኋ፤ ይኸውም ቡሩክ ጌታ ክርስቶስ ነው።"  ሉቃ. ፪፥፲፩
+            </p>
+            <button onclick="revealThirdPage(event)" style="margin-top: 30px; padding: 10px 20px; border: 1px solid var(--gold); background: none; cursor: pointer; font-family: inherit;">
+                CLICK TO OTHER
+            </button>
+        </div>
+    </div>
+
+    <div id="final-page">
+        <div class="overlay"></div>
+        <div class="final-content">
+            <img src="image.jpg" alt="" srcset="" style="width: 100%; height: 150px;">
+            <h1>መልካም ገና!</h1>
+            <h2 style="letter-spacing: 10px;">FOR EVERYONE</h2>
+            <p style="margin-top: 20px; font-size: 1.2rem; max-width: 600px; font-family: sans-serif;">
+                መልካም የገና በዓል ይሁንላችሁ!!
+            </p>
+            <button onclick="location.reload()" style="margin-top: 40px; color: white; border: 1px solid white; background: none; padding: 10px 30px; cursor: pointer;">REPLAY</button>
+        </div>
+    </div>
+
+    <script>
+        function handleCardClick() {
+            document.getElementById('giftCard').classList.add('is-open');
+        }
+
+        function revealThirdPage(event) {
+            // Stop the event from re-triggering handleCardClick
+            event.stopPropagation();
+            
+            // Fade out the card
+            const card = document.getElementById('giftCard');
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            
+            // Show the image page
+            setTimeout(() => {
+                card.style.display = 'none';
+                const finalPage = document.getElementById('final-page');
+                finalPage.style.display = 'flex';
+                createSparkles();
+            }, 1000);
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 40; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.width = '2px';
+                sparkle.style.height = '2px';
+                sparkle.style.backgroundColor = 'white';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.boxShadow = '0 0 10px white';
+                sparkle.style.zIndex = '25';
+                sparkle.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite`;
+                document.body.appendChild(sparkle);
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+
+</body>
+</html>
